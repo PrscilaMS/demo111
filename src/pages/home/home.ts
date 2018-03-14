@@ -11,7 +11,6 @@ import {
   Marker
 } from '@ionic-native/google-maps';
 
-@IonicPage()
 @Component({
   selector: 'page-home',
   templateUrl: 'home.html'
