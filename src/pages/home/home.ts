@@ -1,11 +1,17 @@
 import { Component } from '@angular/core';
-import { NavController } from 'ionic-angular';
+import { IonicPage, NavController, Platform } from 'ionic-angular';
+
 import {
   GoogleMaps,
   GoogleMap,
   GoogleMapsEvent,
-  GoogleMapOptions} from '@ionic-native/google-maps'
+  GoogleMapOptions,
+  CameraPosition,
+  MarkerOptions,
+  Marker
+} from '@ionic-native/google-maps';
 
+@IonicPage()
 @Component({
   selector: 'page-home',
   templateUrl: 'home.html'
@@ -14,10 +20,16 @@ export class HomePage {
 
   map: GoogleMap;
 
-  constructor(public navCtrl: NavController) {
+  constructor(
+    private navCtrl: NavController,
+    private googleMaps: GoogleMaps
+  ) {}
 
+  ionViewDidLoad(){
+    this.loadMap();
   }
-  loadMap() {
+
+  loadMap(){
 
     let mapOptions: GoogleMapOptions = {
       camera: {
@@ -30,35 +42,36 @@ export class HomePage {
       }
     };
 
-    this.map = GoogleMaps.create('map_canvas', mapOptions);
+    this.map = this.googleMaps.create('map_canvas', mapOptions);
 
     // Wait the MAP_READY before using any methods.
     this.map.one(GoogleMapsEvent.MAP_READY)
-      .then(() => {
-        // Now you can use all methods safely.
-        this.getPosition();
-      })
-      .catch(error => {
-        console.log(error);
-      });
+    .then(() => {
+      // Now you can use all methods safely.
+      this.getPosition();
+    })
+    .catch(error =>{
+      console.log(error);
+    });
 
   }
-  getPosition(): void {
+
+  getPosition(): void{
     this.map.getMyLocation()
-      .then(response => {
-        this.map.moveCamera({
-          target: response.latLng
-        });
-        this.map.addMarker({
-          title: 'My Position',
-          icon: 'blue',
-          animation: 'DROP',
-          position: response.latLng
-        });
-      })
-      .catch(error => {
-        console.log(error);
+    .then(response => {
+      this.map.moveCamera({
+        target: response.latLng
       });
+      this.map.addMarker({
+        title: 'My Position',
+        icon: 'blue',
+        animation: 'DROP',
+        position: response.latLng
+      });
+    })
+    .catch(error =>{
+      console.log(error);
+    });
   }
 
 }
