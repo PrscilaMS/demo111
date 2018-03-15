@@ -30,7 +30,7 @@ export class HomePage {
   }
 
   loadMap(){
-    console.log("ola");
+    
     let mapOptions: GoogleMapOptions = {
       camera: {
         target: {
@@ -43,7 +43,7 @@ export class HomePage {
     };
 
     this.map = GoogleMaps.create('map_canvas', mapOptions);
-
+   
     // Wait the MAP_READY before using any methods.
     this.map.one(GoogleMapsEvent.MAP_READY)
     .then(() => {
@@ -57,6 +57,7 @@ export class HomePage {
   }
 
   getPosition(): void{
+    console.log("ola");
     this.map.getMyLocation()
     .then(response => {
       this.map.moveCamera({
