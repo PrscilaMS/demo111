@@ -26,7 +26,7 @@ export class HomePage {
 
   ionViewDidLoad(){
     this.loadMap();
-   
+   //commit a pr
   }
 
   loadMap(){
