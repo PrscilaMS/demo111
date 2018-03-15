@@ -1,14 +1,11 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, Platform } from 'ionic-angular';
+import { IonicPage, NavController } from 'ionic-angular';
 
 import {
   GoogleMaps,
   GoogleMap,
   GoogleMapsEvent,
-  GoogleMapOptions,
-  CameraPosition,
-  MarkerOptions,
-  Marker
+  GoogleMapOptions
 } from '@ionic-native/google-maps';
 
 @Component({
@@ -34,8 +31,8 @@ export class HomePage {
     let mapOptions: GoogleMapOptions = {
       camera: {
         target: {
-          lat: 43.0741904, // default location
-          lng: -89.3809802 // default location
+          lat: 10.0032771, // default location
+          lng: -84.2542092 // default location
         },
         zoom: 18,
         tilt: 30
@@ -57,12 +54,14 @@ export class HomePage {
   }
 
   getPosition(): void{
-    console.log("ola");
+   
     this.map.getMyLocation()
     .then(response => {
       this.map.moveCamera({
         target: response.latLng
+        
       });
+      console.log(response.latLng);
       this.map.addMarker({
         title: 'My Position',
         icon: 'blue',
